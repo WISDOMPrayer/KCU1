@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이름 추첨기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-elements">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <main class="container">
+        <header>
+            <h1>행운의 주인공은?</h1>
+            <p>학부 행사에 적극적으로 참여해주신 분들 중에 수상자를 추첨합니다.</p>
+        </header>
+
+        <section class="draw-area">
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>데이터를 불러오는 중입니다...</p>
+            </div>
+            <div id="error" class="error hidden"></div>
+
+            <div id="names-container" class="names-container hidden">
+                <!-- Names will be populated here -->
+            </div>
+
+            <div id="result-display" class="result-display hidden">
+                <div id="rolling-name" class="rolling-name">준비</div>
+                <div id="winner-name" class="winner-name hidden"></div>
+            </div>
+        </section>
+
+        <div class="controls">
+            <button id="draw-btn" class="draw-btn hidden">
+                <span class="btn-text">추첨 시작</span>
+                <span class="btn-icon">✨</span>
+            </button>
+            <button id="reset-btn" class="reset-btn hidden">
+                다음 추첨하기
+            </button>
+            <button id="full-reset-btn" class="full-reset-btn hidden">
+                전체 초기화
+            </button>
+        </div>
+
+        <section id="winners-section" class="winners-section hidden">
+            <h2>🏆 수상자 명단</h2>
+            <div id="winners-list" class="winners-list">
+                <!-- Winners appended here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
