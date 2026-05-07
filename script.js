@@ -39,6 +39,15 @@ async function init() {
             throw new Error('시트에 참가자 이름이 없습니다.');
         }
 
+        // Get the prize name from headers (keys)
+        // Find the first key that is not empty, not '이름', and not 'Timestamp'
+        const keys = Object.keys(data[0]);
+        const prizeNameKey = keys.find(k => k !== '' && k !== '이름' && k !== 'Timestamp');
+        
+        if (prizeNameKey) {
+            document.getElementById('prize-name').textContent = prizeNameKey;
+        }
+
         renderNames();
         
         elements.loading.classList.add('hidden');

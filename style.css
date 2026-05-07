@@ -93,15 +93,26 @@ body {
     z-index: 10;
 }
 
-header h1 {
+header h1.prize-name {
     font-size: 2.5rem;
     font-weight: 900;
     margin-bottom: 0.5rem;
-    background: linear-gradient(to right, #f59e0b, #d97706);
+    background: linear-gradient(to right, #fbbf24, #d97706);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+}
+
+header h1.prize-name:empty {
+    display: none;
+}
+
+header h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: #581c87; /* Dark Purple */
 }
 
 header p {
