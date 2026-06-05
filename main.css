@@ -141,6 +141,14 @@ body {
     padding: 0 1rem;
 }
 
+.highlight-text {
+    color: var(--gold-light);
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(254, 240, 138, 0.4);
+    display: inline-block;
+    margin-top: 0.4rem;
+}
+
 /* Buttons Section */
 .button-section {
     display: flex;
