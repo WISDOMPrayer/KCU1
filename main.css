@@ -149,6 +149,13 @@ body {
     margin-top: 0.4rem;
 }
 
+.underline-text {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--gold-main);
+    text-decoration-thickness: 1.5px;
+}
+
 /* Buttons Section */
 .button-section {
     display: flex;
