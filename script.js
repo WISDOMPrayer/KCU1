@@ -27,38 +27,47 @@ async function init() {
         if (!response.ok) throw new Error('데이터를 불러오는데 실패했습니다.');
         
         const data = await response.json();
-        
-        // Extract names
-        originalParticipants = data
-            .map(item => item['이름'])
-            .filter(name => name && name.trim() !== '');
+        const keys = Object.keys(data[0]);
 
-        participants = [...originalParticipants];
-
-        if (participants.length === 0) {
-            throw new Error('시트에 참가자 이름이 없습니다.');
-        }
-
-        // Determine prize name from query parameters or fallback to Google Sheets header
+        // Determine prize name and matched column key from query parameters
         const urlParams = new URLSearchParams(window.location.search);
         const awardParam = urlParams.get('award');
         let prizeName = '';
+        let matchedKey = '';
 
         if (awardParam === 'fullcode') {
             prizeName = '행사 풀코드 완주상';
+            matchedKey = keys.find(k => k.replace(/[\s"']/g, '').includes('행사풀코스완주상'));
         } else if (awardParam === 'attendance') {
             prizeName = '개근보다 빛난 만남상';
-        } else {
-            const keys = Object.keys(data[0]);
-            const prizeNameKey = keys.find(k => k !== '' && k !== '이름' && k !== 'Timestamp');
-            if (prizeNameKey) {
-                prizeName = prizeNameKey;
+            matchedKey = keys.find(k => k.replace(/[\s"']/g, '').includes('개근보다빛난만남상'));
+        }
+
+        // Fallback for key and prize name if not specified or not matched
+        if (!matchedKey) {
+            matchedKey = keys.find(k => k !== '' && k !== '이름' && k !== 'Timestamp');
+            if (matchedKey) {
+                prizeName = matchedKey.replace(/["']/g, '').trim();
+            } else {
+                matchedKey = keys.find(k => k.trim() === '이름') || keys[1] || '';
+                prizeName = '추첨';
             }
         }
 
         if (prizeName) {
             document.getElementById('prize-name').textContent = prizeName;
             document.title = `${prizeName} - 이름 추첨기`;
+        }
+
+        // Extract names from the matched column and filter out empty entries or the label '이름'
+        originalParticipants = data
+            .map(item => item[matchedKey])
+            .filter(name => name && name.trim() !== '' && name.trim() !== '이름');
+
+        participants = [...originalParticipants];
+
+        if (participants.length === 0) {
+            throw new Error('시트에 참가자 이름이 없습니다.');
         }
 
         renderNames();
